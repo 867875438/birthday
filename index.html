@@ -76,8 +76,8 @@
             width: 100%;
             height: 100%;
             z-index: 2;
-            display: none;
-            opacity: 0;
+            display: block;
+            opacity: 1;
             transition: opacity 1.5s ease;
             overflow: hidden;
             pointer-events: none;
@@ -96,7 +96,7 @@
             object-fit: cover;
             mix-blend-mode: screen;
             filter: contrast(1.15) brightness(1.05);
-            opacity: 0.45; /* 关键：降低视频不透明度，避免盖住背景图 */
+            opacity: 0.45;
         }
 
         /* 视频控制面板 */
@@ -605,153 +605,6 @@
             text-shadow: 0 0 12px rgba(255, 215, 0, 0.55);
         }
 
-        .lyric-editor {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 2500;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .lyric-editor.show {
-            display: flex;
-        }
-
-        .editor-panel {
-            background: linear-gradient(135deg, #1a1a1a, #000);
-            border: 2px solid var(--gold);
-            border-radius: 15px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 85vh;
-            padding: 20px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .editor-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--gold);
-        }
-
-        .editor-header h3 {
-            color: var(--gold);
-            font-size: 1.3rem;
-        }
-
-        .editor-close {
-            color: var(--gold);
-            font-size: 2rem;
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .editor-info {
-            color: #ddd;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .editor-list {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 15px;
-        }
-
-        .editor-list::-webkit-scrollbar { width: 8px; }
-        .editor-list::-webkit-scrollbar-track {
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 4px;
-        }
-        .editor-list::-webkit-scrollbar-thumb {
-            background: var(--gold);
-            border-radius: 4px;
-        }
-
-        .lyric-edit-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 8px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .lyric-edit-item .lyric-text {
-            flex: 1;
-            color: #fff;
-            font-size: 0.95rem;
-        }
-
-        .lyric-edit-item .time-input {
-            width: 90px;
-            padding: 5px 8px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--gold);
-            border-radius: 5px;
-            color: #fff;
-            font-size: 0.9rem;
-        }
-
-        .lyric-edit-item .set-time-btn {
-            padding: 5px 10px;
-            background: rgba(139, 0, 0, 0.7);
-            border: 1px solid var(--gold);
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        .lyric-edit-item .set-time-btn:hover {
-            background: rgba(255, 215, 0, 0.3);
-        }
-
-        .editor-footer {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-
-        .editor-btn {
-            padding: 10px 20px;
-            border: 1px solid var(--gold);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.25s ease;
-        }
-
-        .editor-btn.save {
-            background: rgba(139, 0, 0, 0.7);
-            color: #fff;
-        }
-
-        .editor-btn.save:hover {
-            background: rgba(255, 215, 0, 0.3);
-        }
-
-        .editor-btn.cancel {
-            background: rgba(50, 50, 50, 0.7);
-            color: #fff;
-        }
-
-        .editor-btn.cancel:hover {
-            background: rgba(100, 100, 100, 0.7);
-        }
-
         .image-viewer {
             position: fixed;
             inset: 0;
@@ -857,20 +710,6 @@
                 font-size: 1rem;
             }
 
-            .editor-panel {
-                width: 95%;
-                padding: 15px;
-            }
-
-            .lyric-edit-item {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .lyric-edit-item .time-input {
-                width: 100%;
-            }
-
             .video-control {
                 width: calc(100% - 24px);
                 left: 12px;
@@ -885,7 +724,7 @@
         <div id="bg-image"></div>
 
         <div id="bg-video-container">
-            <video id="bg-video" muted loop playsinline>
+            <video id="bg-video" muted loop playsinline autoplay>
                 <source src="./assets/videos/tiger.mp4" type="video/mp4">
                 <source src="./assets/videos/tiger.webm" type="video/webm">
                 您的浏览器不支持视频播放
@@ -898,8 +737,8 @@
         <div class="video-control-title">🐯 威虎视频背景</div>
         <div class="video-meaning">💝 老虎走来，代表着我向你走来</div>
         <div class="video-control-btns">
-            <button class="video-btn" onclick="toggleVideo()" id="video-toggle-btn">显示视频</button>
-            <button class="video-btn" onclick="toggleVideoPlay()" id="video-play-btn">播放</button>
+            <button class="video-btn" onclick="toggleVideo()" id="video-toggle-btn">隐藏视频</button>
+            <button class="video-btn" onclick="toggleVideoPlay()" id="video-play-btn">暂停</button>
         </div>
         <select class="blend-select" id="blend-mode" onchange="changeBlendMode()">
             <option value="screen">滤色模式（推荐深色背景）</option>
@@ -930,7 +769,6 @@
             <button class="music-btn" onclick="prevSong()" aria-label="上一首">上一首</button>
             <button class="music-btn" onclick="toggleMusic()" id="play-toggle-btn" aria-label="播放或暂停">播放</button>
             <button class="music-btn" onclick="nextSong()" aria-label="下一首">下一首</button>
-            <button class="music-btn" onclick="openLyricEditor()" aria-label="调节歌词">调节歌词</button>
         </div>
         <div class="music-status" id="music-status">状态：待机</div>
     </div>
@@ -945,25 +783,6 @@
                 <div class="lyric-line active">等待音乐开始...</div>
                 <div class="lyric-line">♪</div>
                 <div class="lyric-line">♪</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="lyric-editor" id="lyric-editor">
-        <div class="editor-panel">
-            <div class="editor-header">
-                <h3>📝 歌词时间调节</h3>
-                <span class="editor-close" onclick="closeLyricEditor()">×</span>
-            </div>
-            <div class="editor-info">
-                当前歌曲：<span id="editor-song-name">--</span><br>
-                播放时间：<span id="editor-current-time">00:00</span> |
-                说明：点击"当前时间"按钮将该句歌词设为当前播放位置，或手动输入时间（格式：分:秒）
-            </div>
-            <div class="editor-list" id="editor-list"></div>
-            <div class="editor-footer">
-                <button class="editor-btn cancel" onclick="closeLyricEditor()">取消</button>
-                <button class="editor-btn save" onclick="saveLyricTimes()">保存并应用</button>
             </div>
         </div>
     </div>
@@ -1098,9 +917,7 @@
         let lyricTimer = null;
         let currentLyrics = [];
         let currentLyricIndex = -1;
-        let manualLyricTimes = {};
-        let editorUpdateTimer = null;
-        let videoVisible = false;
+        let videoVisible = true;
 
         const bgVideo = document.getElementById('bg-video');
         const bgVideoContainer = document.getElementById('bg-video-container');
@@ -1108,7 +925,6 @@
         const videoPlayBtn = document.getElementById('video-play-btn');
         const opacityValue = document.getElementById('opacity-value');
 
-        // 视频控制函数
         function toggleVideo() {
             videoVisible = !videoVisible;
 
@@ -1150,7 +966,6 @@
             opacityValue.textContent = `${value}%`;
         }
 
-        // 监听视频播放状态
         bgVideo.addEventListener('play', () => {
             videoPlayBtn.textContent = '暂停';
         });
@@ -1210,10 +1025,6 @@
         const lyricsBox = document.getElementById('lyrics-box');
         const lyricsSongNameEl = document.getElementById('lyrics-song-name');
         const lyricsListEl = document.getElementById('lyrics-list');
-        const lyricEditor = document.getElementById('lyric-editor');
-        const editorSongNameEl = document.getElementById('editor-song-name');
-        const editorCurrentTimeEl = document.getElementById('editor-current-time');
-        const editorListEl = document.getElementById('editor-list');
         const imageViewer = document.getElementById('image-viewer');
         const viewerImg = document.getElementById('viewer-img');
         const viewerCaption = document.getElementById('viewer-caption');
@@ -1262,12 +1073,8 @@
         function updateLyricsBySong() {
             const song = playlist[currentSongIndex];
             lyricsSongNameEl.textContent = `当前歌曲：${song.name}`;
-            if (manualLyricTimes[song.name]) {
-                currentLyrics = manualLyricTimes[song.name];
-            } else {
-                const lrcText = lyricsMap[song.name] || '';
-                currentLyrics = parseLrc(lrcText);
-            }
+            const lrcText = lyricsMap[song.name] || '';
+            currentLyrics = parseLrc(lrcText);
             currentLyricIndex = -1;
             renderLyrics(currentLyrics, 0);
         }
@@ -1286,80 +1093,6 @@
                 currentLyricIndex = newIndex;
                 moveLyrics(currentLyricIndex);
             }
-        }
-
-        function openLyricEditor() {
-            const song = playlist[currentSongIndex];
-            if (!song) return;
-            editorSongNameEl.textContent = song.name;
-            let lyrics;
-            if (manualLyricTimes[song.name]) {
-                lyrics = manualLyricTimes[song.name];
-            } else {
-                const lrcText = lyricsMap[song.name] || '';
-                lyrics = parseLrc(lrcText);
-            }
-            editorListEl.innerHTML = lyrics.map((item, index) => {
-                const timeStr = formatTime(item.time);
-                return `<div class="lyric-edit-item"><div class="lyric-text">${item.text}</div><input type="text" class="time-input" data-index="${index}" value="${timeStr}" placeholder="0:00.0"><button class="set-time-btn" onclick="setCurrentTime(${index})">当前时间</button></div>`;
-            }).join('');
-            lyricEditor.classList.add('show');
-            if (editorUpdateTimer) clearInterval(editorUpdateTimer);
-            editorUpdateTimer = setInterval(() => {
-                editorCurrentTimeEl.textContent = formatTime(audio.currentTime);
-            }, 100);
-        }
-
-        function closeLyricEditor() {
-            lyricEditor.classList.remove('show');
-            if (editorUpdateTimer) {
-                clearInterval(editorUpdateTimer);
-                editorUpdateTimer = null;
-            }
-        }
-
-        function setCurrentTime(index) {
-            const currentTime = audio.currentTime;
-            const input = document.querySelector(`.time-input[data-index="${index}"]`);
-            if (input) input.value = formatTime(currentTime);
-        }
-
-        function saveLyricTimes() {
-            const song = playlist[currentSongIndex];
-            if (!song) return;
-            const inputs = editorListEl.querySelectorAll('.time-input');
-            const newLyrics = [];
-            inputs.forEach((input, index) => {
-                const timeStr = input.value.trim();
-                const time = parseTimeString(timeStr);
-                const text = input.closest('.lyric-edit-item').querySelector('.lyric-text').textContent;
-                newLyrics.push({ time, text });
-            });
-            newLyrics.sort((a, b) => a.time - b.time);
-            manualLyricTimes[song.name] = newLyrics;
-            currentLyrics = newLyrics;
-            currentLyricIndex = -1;
-            renderLyrics(currentLyrics, 0);
-            syncLyrics();
-            closeLyricEditor();
-            alert('歌词时间已保存并应用！');
-        }
-
-        function formatTime(seconds) {
-            const min = Math.floor(seconds / 60);
-            const sec = (seconds % 60).toFixed(1);
-            return `${min}:${sec.padStart(4, '0')}`;
-        }
-
-        function parseTimeString(timeStr) {
-            if (!timeStr) return 0;
-            const parts = timeStr.split(':');
-            if (parts.length === 2) {
-                const min = parseInt(parts[0]) || 0;
-                const sec = parseFloat(parts[1]) || 0;
-                return min * 60 + sec;
-            }
-            return parseFloat(timeStr) || 0;
         }
 
         function loadSong(index) {
@@ -1536,7 +1269,7 @@
             fireworksEnabled = true;
             document.addEventListener('click', function(e) {
                 const target = e.target;
-                if (target.closest('#overlay') || target.closest('#scroll-container') || target.closest('.music-player') || target.closest('.lyrics-box') || target.closest('.lyric-editor') || target.closest('.image-viewer') || target.closest('.right-panel') || target.closest('.video-control') || target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.tagName === 'IMG' || target.tagName === 'SELECT') {
+                if (target.closest('#overlay') || target.closest('#scroll-container') || target.closest('.music-player') || target.closest('.lyrics-box') || target.closest('.image-viewer') || target.closest('.right-panel') || target.closest('.video-control') || target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.tagName === 'IMG' || target.tagName === 'SELECT') {
                     return;
                 }
                 createFirework(e.clientX, e.clientY);
@@ -1589,7 +1322,6 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     closeViewer();
-                    closeLyricEditor();
                 }
             });
         }
@@ -1599,7 +1331,17 @@
             viewerImg.src = '';
         }
 
+        function initVideoDefaultState() {
+            bgVideoContainer.style.display = 'block';
+            bgVideoContainer.style.opacity = '1';
+            bgVideo.style.opacity = '0.45';
+            bgVideo.style.mixBlendMode = document.getElementById('blend-mode').value;
+            videoToggleBtn.textContent = '隐藏视频';
+            bgVideo.play().catch(e => console.log('视频自动播放失败:', e));
+        }
+
         initAlbumViewer();
+        initVideoDefaultState();
     </script>
 </body>
 </html>
